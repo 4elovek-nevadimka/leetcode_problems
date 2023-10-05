@@ -1,2 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Solutions;
+
+Console.WriteLine("LeetCode Problems!");
+
+// run task here for debugging
+new Task_0229().Run();
+
+// Console.ReadKey();
