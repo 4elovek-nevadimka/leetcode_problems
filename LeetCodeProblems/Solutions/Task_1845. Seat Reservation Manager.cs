@@ -32,12 +32,12 @@ namespace Solutions
         }
     }
 
-    public class SeatManager
+    public class SeatManager2
     {
 
         private readonly SortedSet<int> _reservations = new SortedSet<int>();
 
-        public SeatManager(int n)
+        public SeatManager2(int n)
         {
             for (var i = 1; i <= n; i++)
             {
