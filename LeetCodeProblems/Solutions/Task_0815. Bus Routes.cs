@@ -13,6 +13,68 @@
 
         public int NumBusesToDestination(int[][] routes, int source, int target)
         {
+            return Solution1(routes, source, target);
+        }
+
+        public int Solution1(int[][] routes, int source, int target)
+        {
+            if (source == target) return 0;
+
+            var stopAndRoutes = new Dictionary<int, List<int>>();
+
+            for (var i = 0; i < routes.Length; i++)
+            {
+                foreach (var busStop in routes[i])
+                {
+                    if (!stopAndRoutes.ContainsKey(busStop))
+                        stopAndRoutes[busStop] = new List<int>();
+
+                    stopAndRoutes[busStop].Add(i);
+                }
+            }
+
+            var queue = new Queue<int>();
+            var visitedStops = new HashSet<int>();
+            var visitedRoutes = new HashSet<int>();
+
+            queue.Enqueue(source);
+            visitedStops.Add(source);
+
+            var busChanges = 0;
+            while (queue.Count > 0)
+            {
+                var size = queue.Count;
+                for (int i = 0; i < size; i++)
+                {
+                    var currentStop = queue.Dequeue();
+                    foreach (var route in stopAndRoutes[currentStop])
+                    {
+                        if (visitedRoutes.Contains(route))
+                            continue;
+
+                        visitedRoutes.Add(route);
+                        foreach (var nextStop in routes[route])
+                        {
+                            if (visitedStops.Contains(nextStop))
+                                continue;
+
+                            if (nextStop == target)
+                                return busChanges + 1;
+
+                            visitedStops.Add(nextStop);
+                            queue.Enqueue(nextStop);
+                        }
+                    }
+                }
+                busChanges++;
+            }
+            return -1;
+        }
+
+        /// <summary>Wrong attempt</summary>
+        /// <returns></returns>
+        public int Solution2(int[][] routes, int source, int target)
+        {
             var graph = new GraphA();
             foreach (var route in routes)
             {
