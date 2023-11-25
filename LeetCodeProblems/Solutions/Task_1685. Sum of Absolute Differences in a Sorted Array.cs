@@ -13,6 +13,11 @@
 
         public int[] GetSumAbsoluteDifferences(int[] nums)
         {
+            return Solution2(nums);
+        }
+
+        private int[] Solution1(int[] nums)
+        {
             var n = nums.Length;
 
             var preSums = new int[n];
@@ -36,6 +41,31 @@
             }
 
             return result;
+        }
+
+        private int[] Solution2(int[] nums)
+        {
+            var n = nums.Length;
+
+            var leftSum = 0;
+            for (var i = 0; i < n; i++)
+            {
+                leftSum += nums[i];
+            }
+
+            var rightSum = 0;
+            for (var i = n - 1; i >= 0; i--)
+            {
+                leftSum -= nums[i];
+                var left = (i * nums[i]) - leftSum;
+
+                var right = rightSum - ((nums.Length - i - 1) * nums[i]);
+                rightSum += nums[i];
+                
+                nums[i] = left + right;
+            }
+
+            return nums;
         }
     }
 }
