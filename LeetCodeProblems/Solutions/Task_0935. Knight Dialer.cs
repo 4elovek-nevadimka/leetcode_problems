@@ -11,7 +11,7 @@
 
         public int KnightDialer(int n)
         {
-            return Solution1(n);
+            return Solution2(n);
         }
 
         #region Solution1
@@ -68,6 +68,32 @@
 
             _memo[remain][cell] = result;
             return result;
+        }
+
+        #endregion
+
+        #region Solution2
+
+        public int Solution2(int n)
+        {
+            if (n == 1)
+            {
+                return 10;
+            }
+
+            int a = 4, b = 2, c = 2, d = 1;
+            for (int i = 0; i < n - 1; i++)
+            {
+                int tmpA, tmpB, tmpC, tmpD;
+                (tmpA, tmpB, tmpC, tmpD) = (a, b, c, d);
+
+                a = (2 * tmpB % MOD + 2 * tmpC % MOD) % MOD;
+                b = tmpA;
+                c = (tmpA + 2 * tmpD % MOD) % MOD;
+                d = tmpC;
+            }
+
+            return (((((a + b) % MOD) + c) % MOD) + d) % MOD;
         }
 
         #endregion
