@@ -1,28 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Solutions
+﻿namespace Solutions.Trees
 {
-    // Definition for a binary tree node.
-    public class TreeNode
-    {
-        public int val;
-        public TreeNode left;
-        public TreeNode right;
-        
-        public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
-        {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
-
     public class Task_0515
     {
+        public void Run()
+        {
+
+        }
+
         public IList<int> LargestValues(TreeNode root)
         {
             return Solution2(root);
@@ -98,11 +82,6 @@ namespace Solutions
 
             if (nextLevelNodes.Count > 0)
                 BFS(largestValues, nextLevelNodes);
-        }
-
-        public void Run()
-        {
-
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Solutions
+﻿namespace Solutions.Trees
 {
     internal class Task_0501
     {

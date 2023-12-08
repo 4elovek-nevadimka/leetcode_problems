@@ -1,23 +1,9 @@
 ﻿using System.Text;
 
-namespace Solutions
+namespace Solutions.Trees
 {
     internal class Task_0606
     {
-        // Definition for a binary tree node.
-        public class TreeNode
-        {
-            public int val;
-            public TreeNode left;
-            public TreeNode right;
-            public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
-            {
-                this.val = val;
-                this.left = left;
-                this.right = right;
-            }
-        }
-
         public void Run()
         {
             // case 1
@@ -32,6 +18,8 @@ namespace Solutions
             Console.WriteLine(Tree2str(root));
             Console.WriteLine("1(2()(4))(3)");
         }
+
+        #region StringBuilder Solution
 
         private readonly StringBuilder _sb = new();
 
@@ -61,5 +49,28 @@ namespace Solutions
                 _sb.Append(')');
             }
         }
+
+        #endregion
+
+        private string Traverse2(TreeNode node)
+        {
+            if (node == null) return "";
+
+            var str = $"{node.val}";
+
+            if (node.left != null || node.right != null)
+            {
+                str += $"({Traverse2(node.left)})";
+            }
+
+            if (node.right != null)
+            {
+                str += $"({Traverse2(node.right)})";
+            }
+
+            return str;
+        }
+
+        
     }
 }

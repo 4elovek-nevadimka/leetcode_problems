@@ -1,10 +1,11 @@
-﻿namespace Solutions
+﻿namespace Solutions.Trees
 {
     internal class Task_2265
     {
         private int avgCounter = 0;
 
-        public int AverageOfSubtree(TreeNode root) {
+        public int AverageOfSubtree(TreeNode root)
+        {
             Traverse(root);
             return avgCounter;
         }
@@ -21,7 +22,7 @@
             var sum = left.sum + right.sum + node.val;
 
             if (sum / nodes == node.val) avgCounter++;
-            
+
             return (nodes, sum);
         }
     }
