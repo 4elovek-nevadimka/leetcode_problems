@@ -1,9 +1,8 @@
-﻿using System;
-
-namespace Solutions.Matrix
+﻿namespace Solutions.Matrix
 {
     internal class Task_1582
     {
+        // #Array #Matrix 
         public void Run()
         {
             var matrix = new int[][] { 
