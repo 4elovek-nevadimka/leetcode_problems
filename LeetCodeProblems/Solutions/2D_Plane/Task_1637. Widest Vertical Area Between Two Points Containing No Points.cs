@@ -1,4 +1,4 @@
-﻿namespace Solutions.Arrays
+﻿namespace Solutions._2D_Plane
 {
     internal class Task_1637
     {
