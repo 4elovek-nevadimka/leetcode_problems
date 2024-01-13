@@ -6,7 +6,7 @@
 
         public int NumIdenticalPairs(int[] nums)
         {
-            return Solution2(nums);
+            return Solution3(nums);
         }
 
         private int Solution1(int[] nums)
@@ -58,6 +58,25 @@
             {
                 goodPairsCounter += 
                     digitsCounter[num] * (digitsCounter[num] - 1) / 2;
+            }
+
+            return goodPairsCounter;
+        }
+
+        private int Solution3(int[] nums)
+        {
+            var goodPairsCounter = 0;
+            var digitsCounter = new Dictionary<int, int>();
+            foreach (var num in nums)
+            {
+                if (!digitsCounter.ContainsKey(num))
+                {
+                    digitsCounter.Add(num, 1);
+                }
+                else
+                {
+                    goodPairsCounter += digitsCounter[num]++;
+                }
             }
 
             return goodPairsCounter;
