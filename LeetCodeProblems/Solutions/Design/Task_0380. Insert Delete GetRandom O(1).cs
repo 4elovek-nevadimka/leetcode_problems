@@ -36,6 +36,47 @@
             }
         }
 
+        public class RandomizedSet2
+        {
+            private readonly Random _random = new();
+            private readonly List<int> _list = new();
+            private readonly Dictionary<int, int> _dic = new();
+
+            public RandomizedSet2() { }
+
+            public bool Insert(int val)
+            {
+                if (_dic.ContainsKey(val))
+                    return false;
+
+                _list.Add(val);
+                _dic[val] = _list.Count - 1;
+                return true;
+            }
+
+            public bool Remove(int val)
+            {
+                if (!_dic.ContainsKey(val))
+                    return false;
+
+                var lastItem = _list[^1];
+                var itemIndex = _dic[val];
+
+                _list[itemIndex] = lastItem;
+                _dic[lastItem] = itemIndex;
+
+                _list.RemoveAt(_list.Count - 1);
+                _dic.Remove(val);
+
+                return true;
+            }
+
+            public int GetRandom()
+            {
+                return _list[_random.Next(_list.Count)];
+            }
+        }
+
         /**
          * Your RandomizedSet object will be instantiated and called as such:
          * RandomizedSet obj = new RandomizedSet();
