@@ -6,12 +6,17 @@
 
         public void Run()
         {
-            // var nums = new[] { 2, 7, 9, 3, 1 };
-            var nums = new[] { 2, 1, 2, 1, 3, 4, 2 };
+            var nums = new[] { 2, 7, 9, 3, 1 };
+            // var nums = new[] { 2, 1, 2, 1, 3, 4, 2 };
             Console.Write(Rob(nums));
         }
 
         public int Rob(int[] nums)
+        {
+            return Solution2(nums);
+        }
+
+        private int Solution1(int[] nums)
         {
             if (nums.Length == 1) return nums[0];
 
@@ -24,6 +29,17 @@
                 // Console.WriteLine($"{i}: {dp[i]}");
             }
             return dp[nums.Length - 1];
+        }
+
+        private int Solution2(int[] nums)
+        {
+            int a = 0, b = 0;
+            foreach (var num in nums)
+            {
+                var tmp = Math.Max(a + num, b);
+                (a, b) = (b, tmp);
+            }
+            return b;
         }
     }
 }
