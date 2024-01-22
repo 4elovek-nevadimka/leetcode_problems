@@ -1,9 +1,9 @@
-﻿using System.Linq;
-
-namespace Solutions
+﻿namespace Solutions
 {
     internal class Task_2642
     {
+        // #Graph #Design #Heap(Priority Queue) #Shortest Path
+
         public void Run()
         {
             // Input
