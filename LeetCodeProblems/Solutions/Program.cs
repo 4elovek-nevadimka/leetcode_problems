@@ -11,7 +11,6 @@ using Solutions.Trees;
 Console.WriteLine("LeetCode Problems!");
 
 // run task here for debugging
-// new Task_0645().Run();
-new Common_Graphs_Simulation().Run();
+new Task_2642().Run();
 
 // Console.ReadKey();

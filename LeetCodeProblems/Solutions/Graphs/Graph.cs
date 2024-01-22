@@ -1,23 +1,14 @@
 ﻿namespace Solutions.Graphs
 {
-    internal class Common_Graphs_Simulation
+    public class Graph
     {
-        public void Run()
-        {
-            Common_Graphs graph = new( new int[][] {
-                new[] { 0, 1, 6 }, new[] { 0, 2, 2 }, 
-                new[] { 2, 1, 3 }, 
-                new[] { 1, 3, 1 }, new[] { 2, 3, 5 }
-            });
-            Console.WriteLine(graph.ShortestPath(0, 3));
-        }
-    }
+        private readonly ICollection<int> _shortestPath = new List<int>();
 
-    internal class Common_Graphs
-    {
         private readonly Dictionary<int, Dictionary<int, int>> _graph = new();
 
-        public Common_Graphs(int[][] edges)
+        public ICollection<int> ShortestPath => _shortestPath;
+
+        public Graph(int n, int[][] edges)
         {
             foreach (var edge in edges)
             {
@@ -33,13 +24,28 @@
             }
         }
 
-        public int ShortestPath(int node1, int node2)
+        public void AddEdge(int[] edge)
+        {
+            if (!_graph.ContainsKey(edge[0]))
+            {
+                _graph.Add(edge[0], new Dictionary<int, int>());
+            }
+            if (!_graph.ContainsKey(edge[1]))
+            {
+                _graph.Add(edge[1], new Dictionary<int, int>());
+            }
+            _graph[edge[0]].Add(edge[1], edge[2]);
+        }
+
+        public int GetShortestPath(int node1, int node2)
         {
             if (node1 == node2) return 0;
 
+            if (!_graph.ContainsKey(node1)
+                || !_graph.ContainsKey(node2)) return -1;
+
             var costs = InitCosts(node1);
             var parents = InitParents(node1);
-
             var visited = new HashSet<int>();
 
             var lowestCostNode = FindLowestCostNode(costs, visited);
@@ -62,23 +68,8 @@
                 visited.Add(lowestCostNode);
                 lowestCostNode = FindLowestCostNode(costs, visited);
             }
-            Console.WriteLine(parents);
+            CombinePath(parents, node1, node2);
             return costs[node2] == int.MaxValue ? -1 : costs[node2];
-        }
-
-        private int FindLowestCostNode(Dictionary<int, int> costs, ICollection<int> visited)
-        {
-            int lowestCost = int.MaxValue, lowestCostNode = -1;
-            foreach (var node in costs)
-            {
-                var cost = node.Value;
-                if (cost < lowestCost && !visited.Contains(node.Key))
-                {
-                    lowestCost = cost;
-                    lowestCostNode = node.Key;
-                }
-            }
-            return lowestCostNode;
         }
 
         private Dictionary<int, int> InitCosts(int node1)
@@ -125,6 +116,40 @@
                 }
             }
             return parents;
+        }
+
+        private int FindLowestCostNode(Dictionary<int, int> costs, ICollection<int> visited)
+        {
+            int lowestCost = int.MaxValue, lowestCostNode = -1;
+            foreach (var node in costs)
+            {
+                var cost = node.Value;
+                if (cost < lowestCost && !visited.Contains(node.Key))
+                {
+                    lowestCost = cost;
+                    lowestCostNode = node.Key;
+                }
+            }
+            return lowestCostNode;
+        }
+
+        private void CombinePath(Dictionary<int, int> parents, int node1, int node2)
+        {
+            _shortestPath.Clear();
+            var child = node2;
+            _shortestPath.Add(child);
+            while (child != node1)
+            {
+                var parent = parents[child];
+                if (parent == int.MaxValue)
+                {
+                    // no answer
+                    _shortestPath.Clear();
+                    break;
+                }
+                _shortestPath.Add(parent);
+                child = parent;
+            }
         }
     }
 }
