@@ -6,7 +6,8 @@
 
         public int PseudoPalindromicPaths(TreeNode root)
         {
-            return DFS(root, new int[10]);
+            // return DFS(root, new int[10]);
+            return DFS2(root, 0);
         }
 
         private int DFS(TreeNode node, int[] freq)
@@ -30,6 +31,20 @@
             freq[node.val]--;
 
             return left + right;
+        }
+
+        private int DFS2(TreeNode node, int count)
+        {
+            count ^= 1 << (node.val - 1);
+
+            if (node.left == null && node.right == null)
+            {
+                return (count & (count - 1)) == 0 ? 1 : 0;
+            }
+
+            return 
+                (node.left != null ? DFS2(node.left, count) : 0) 
+                + (node.right != null ? DFS2(node.right, count) : 0);
         }
     }
 }
