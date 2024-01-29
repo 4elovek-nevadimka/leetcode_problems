@@ -16,19 +16,12 @@
 
         public void Push(int x)
         {
-            if (one.Count == 0 && two.Count > 0)
-            {
-                while (two.Count > 0)
-                {
-                    one.Push(two.Pop());
-                }
-            }
             one.Push(x);
         }
 
         public int Pop()
         {
-            if (two.Count == 0 && one.Count > 0)
+            if (two.Count == 0)
             {
                 while (one.Count > 0)
                 {
@@ -40,7 +33,7 @@
 
         public int Peek()
         {
-            if (two.Count == 0 && one.Count > 0)
+            if (two.Count == 0)
             {
                 while (one.Count > 0)
                 {
@@ -52,11 +45,7 @@
 
         public bool Empty()
         {
-            if (one.Count == 0)
-            {
-                return two.Count == 0;
-            }
-            return one.Count == 0;
+            return Math.Max(one.Count, two.Count) == 0;
         }
     }
 }
