@@ -22,7 +22,7 @@
 					{
 						tmp = (tmp + dp[i - 1, j - p]);
 					}
-					dp[i, j] = tmp % mod;
+					dp[i, j] = (int)(tmp % MOD);
 				}
 			}
 
