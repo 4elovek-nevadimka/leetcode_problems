@@ -1,7 +1,9 @@
-﻿namespace Solutions
+﻿namespace Solutions.Arrays
 {
     public class Task_0229
     {
+        // #Array #Hash Table #Sorting #Counting
+
         public IList<int> MajorityElement(int[] nums)
         {
             var appearTimes = nums.Length / 3;

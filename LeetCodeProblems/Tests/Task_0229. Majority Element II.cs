@@ -1,4 +1,4 @@
-using Solutions;
+using Solutions.Arrays;
 
 namespace Tests
 {
