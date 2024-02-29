@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Solutions.Trees
+﻿namespace Solutions.Trees
 {
     internal class Task_0513
     {
