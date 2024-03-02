@@ -61,5 +61,20 @@
 
             return nums;
         }
+
+        private int[] Solution4(int[] nums)
+        {
+            var result = new int[nums.Length];
+            int left = 0, right = nums.Length - 1;
+            int end = right;
+            while (left <= right)
+            {
+                result[end--] = 
+                    Math.Abs(nums[right]) > Math.Abs(nums[left])
+                    ? nums[right] * nums[right--] : nums[left] * nums[left++];
+            }
+                
+            return result;
+        }
     }
 }
