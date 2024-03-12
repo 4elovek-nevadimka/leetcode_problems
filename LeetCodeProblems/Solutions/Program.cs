@@ -5,6 +5,7 @@ using Solutions.Design;
 using Solutions.DP;
 using Solutions.Enumeration;
 using Solutions.Graphs;
+using Solutions.LinkedLists;
 using Solutions.Mathematics;
 using Solutions.Matrix;
 using Solutions.Simulation;
@@ -14,6 +15,6 @@ using Solutions.Trees;
 Console.WriteLine("LeetCode Problems!");
 
 // run task here for debugging
-new Task_0791().Run();
+new Task_1171().Run();
 
 // Console.ReadKey();
