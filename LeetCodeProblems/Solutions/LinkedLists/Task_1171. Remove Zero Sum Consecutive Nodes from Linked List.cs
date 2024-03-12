@@ -19,31 +19,27 @@
         public ListNode RemoveZeroSumSublists(ListNode head)
         {
             var sum = 0;
-            var start = head;
+            var start = new ListNode(0, head);
             var dic = new Dictionary<int, ListNode>();
+
+            head = start;
             while (head != null)
             {
                 sum += head.val;
-                if (sum == 0)
-                {
-                    dic.Clear();
-                    start = head.next;
-                }
-                else
-                {
-                    if (dic.ContainsKey(sum))
-                    {
-                        dic[sum].next = head.next;
-                        // dic[sum] = head; -- ??
-                    }
-                    else
-                    {
-                        dic.Add(sum, head);
-                    }
-                }
+                dic[sum] = head;
                 head = head.next;
             }
-            return start;
+
+            sum = 0;
+            head = start;
+            while (head != null)
+            {
+                sum += head.val;
+                head.next = dic[sum].next;
+                head = head.next;
+            }
+
+            return start.next;
         }
     }
 }
