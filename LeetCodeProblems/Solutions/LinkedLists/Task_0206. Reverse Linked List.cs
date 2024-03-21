@@ -26,23 +26,15 @@
             return head;
         }
 
-        //private ListNode Solution2(ListNode head)
-        //{
-        //    if (head == null)
-        //        return null;
-        //    return Reverse(head, null);
-        //}
+        private ListNode Solution2(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return head;
 
-        //private ListNode Reverse(ListNode node, ListNode prev)
-        //{
-        //    if (node.next == null)
-        //    {
-        //        node.next = prev;
-        //        return node;
-        //    }
-
-        //    prev?.next = node;
-        //    return Reverse(node.next, node);
-        //}
+            ListNode tmp = ReverseList(head.next);
+            head.next.next = head;
+            head.next = null;
+            return tmp;
+        }
     }
 }
