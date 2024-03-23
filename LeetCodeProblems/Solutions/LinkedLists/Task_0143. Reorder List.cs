@@ -6,6 +6,11 @@
 
         public void ReorderList(ListNode head)
         {
+            Solution1(head);
+        }
+
+        private void Solution1(ListNode head)
+        {
             if (head == null || head.next == null) return;
 
             ListNode slow = head, fast = head;
@@ -33,6 +38,41 @@
                 node = nextNode;
             }
             node.next = null;
+        }
+
+        private void Solution2(ListNode head)
+        {
+            if (head == null || head.next == null) return;
+
+            ListNode slow = head, fast = head;
+            while (fast.next != null && fast.next.next != null)
+            {
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+
+            ListNode prev = null, curr = slow.next;
+            while (curr != null)
+            {
+                var nextTemp = curr.next;
+                curr.next = prev;
+                prev = curr;
+                curr = nextTemp;
+            }
+            slow.next = null;
+
+            ListNode first = head, second = prev;
+            while (first != null && second != null)
+            {
+                var firstNext = first.next;
+                var secondNext = second.next;
+
+                first.next = second;
+                second.next = firstNext;
+
+                first = firstNext;
+                second = secondNext;
+            }
         }
     }
 }
