@@ -13,6 +13,11 @@
 
         public int FirstMissingPositive(int[] nums)
         {
+            return Solution2(nums);
+        }
+
+        private int Solution1(int[] nums)
+        {
             var n = nums.Length;
             for (var i = 0; i < n; i++)
                 if (nums[i] <= 0 || nums[i] > n)
@@ -28,6 +33,23 @@
 
             for (var i = 0; i < n; i++)
                 if (nums[i] > 0)
+                    return i + 1;
+
+            return n + 1;
+        }
+
+        private int Solution2(int[] nums)
+        {
+            int index = 0, n = nums.Length;
+            while (index < n)
+                if (nums[index] <= 0 || nums[index] >= n 
+                    || nums[index] == index + 1 || nums[index] == nums[nums[index] - 1])
+                    index++;
+                else
+                    (nums[index], nums[nums[index] - 1]) = (nums[nums[index] - 1], nums[index]);
+
+            for (var i = 0; i < n; i++)
+                if (nums[i] != i + 1)
                     return i + 1;
 
             return n + 1;
