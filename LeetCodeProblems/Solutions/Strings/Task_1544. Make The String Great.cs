@@ -15,7 +15,7 @@ namespace Solutions.Strings
 
         public string MakeGood(string s)
         {
-            return Solution2(s);
+            return Solution3(s);
         }
 
         private string Solution1(string s)
@@ -46,6 +46,25 @@ namespace Solutions.Strings
                         goodString.Remove(goodString.Length - 1, 1);
                     else
                         goodString.Append(s[i]);
+
+            return goodString.ToString();
+        }
+
+        private string Solution3(string s)
+        {
+            var stack = new Stack<char>();
+            for (var i = 0; i < s.Length; i++)
+                if ((i < s.Length - 1) && (Math.Abs(s[i] - s[i + 1]) == 32))
+                    i++;
+                else
+                    if (stack.TryPeek(out char last) && Math.Abs(s[i] - last) == 32)
+                        stack.Pop();
+                    else
+                        stack.Push(s[i]);
+
+            var goodString = new StringBuilder();
+            while (stack.Count > 0)
+                goodString.Insert(0, stack.Pop());
 
             return goodString.ToString();
         }
