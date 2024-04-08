@@ -2,6 +2,8 @@
 {
     internal class Task_1700
     {
+        public object Types { get; private set; }
+
         // #Array #Stack #Queue #Simulation
 
         public void Run()
@@ -12,10 +14,15 @@
 
         public int CountStudents(int[] students, int[] sandwiches)
         {
+            return Solution2(students, sandwiches);
+        }
+
+        private int Solution1(int[] students, int[] sandwiches)
+        {
             var queue = new Queue<int>(students.Length);
             foreach (var student in students)
                 queue.Enqueue(student);
-            
+
             var stack = new Stack<int>(sandwiches.Length);
             foreach (var sandwich in sandwiches.Reverse())
                 stack.Push(sandwich);
@@ -41,6 +48,24 @@
             }
 
             return queue.Count;
+        }
+
+        private int Solution2(int[] students, int[] sandwiches)
+        {
+            var types = new int[2];
+            foreach (var student in students)
+                types[student]++;
+
+            var index = 0;
+            while (index < sandwiches.Length)
+            {
+                if (types[sandwiches[index]] == 0)
+                    break;
+
+                types[sandwiches[index++]]--;
+            }
+
+            return sandwiches.Length - index;
         }
     }
 }
