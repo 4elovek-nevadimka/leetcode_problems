@@ -2,8 +2,6 @@
 {
     internal class Task_1700
     {
-        public object Types { get; private set; }
-
         // #Array #Stack #Queue #Simulation
 
         public void Run()
