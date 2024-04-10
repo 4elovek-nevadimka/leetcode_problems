@@ -15,6 +15,6 @@ using Solutions.Trees;
 Console.WriteLine("LeetCode Problems!");
 
 // run task here for debugging
-new Task_1700().Run();
+new Task_0950().Run();
 
 // Console.ReadKey();
