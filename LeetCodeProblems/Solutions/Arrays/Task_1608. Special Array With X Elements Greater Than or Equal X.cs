@@ -35,14 +35,11 @@
             if (nums[0] >= n)
                 return n;
 
-            for (var i = 0; i < n; i++)
-                if (nums[i] == n - i || nums[i] > n - i)
-                    if (i > 0 && nums[i - 1] != n - i)
-                        return n - i;
-                    else
-                        break;
+            var x = BinarySearch(nums);
+            if (x == 0)
+                return -1;
 
-            return -1;
+            return nums[^x] >= x ? x : -1;
         }
 
         private int BinarySearch(int[] nums)
