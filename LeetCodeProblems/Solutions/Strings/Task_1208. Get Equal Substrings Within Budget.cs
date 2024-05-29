@@ -16,21 +16,14 @@
 
             while (right < s.Length)
             {
-                var curCost = Math.Abs(s[right] - t[right]);
-                if (curCost + sumCost <= maxCost)
+                sumCost += Math.Abs(s[right] - t[right]);
+                while (sumCost > maxCost)
                 {
-                    right++;
-                    sumCost += curCost;
-                    maxLength = Math.Max(maxLength, right - left);
-                }
-                else
-                {
-                    if (sumCost > 0)
-                        sumCost -= Math.Abs(s[left] - t[left]);
+                    sumCost -= Math.Abs(s[left] - t[left]);
                     left++;
-                    if (left > right)
-                        right++;
                 }
+                maxLength = Math.Max(maxLength, right - left + 1);
+                right++;
             }
             return maxLength;
         }
