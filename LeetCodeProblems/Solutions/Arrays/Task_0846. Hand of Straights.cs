@@ -23,33 +23,27 @@
             var slave = new Stack<int>();
             while (primary.Count > 0)
             {
-                var groupCounter = 1;
-                var previous = primary.Pop();
+                int groupCounter = 1;
+                int previous = primary.Pop();
                 while (groupCounter < groupSize)
                 {
-                    try
+                    if (!primary.TryPop(out int current))
+                        return false;
+
+                    if (previous == current)
                     {
-                        var current = primary.Pop();
-                        if (previous == current)
-                        {
-                            // skip
-                            slave.Push(current);
-                        }
-                        else if (previous - current == 1)
-                        {
-                            // nice
-                            groupCounter++;
-                            previous = current;
-                        }
-                        else
-                        {
-                            // break
-                            return false;
-                        }
+                        // skip
+                        slave.Push(current);
                     }
-                    catch (InvalidOperationException ioe)
+                    else if (previous - current == 1)
                     {
-                        // empty stack
+                        // nice
+                        groupCounter++;
+                        previous = current;
+                    }
+                    else
+                    {
+                        // break
                         return false;
                     }
                 }
