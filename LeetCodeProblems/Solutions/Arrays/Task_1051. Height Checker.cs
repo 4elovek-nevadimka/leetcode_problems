@@ -6,15 +6,26 @@
 
         public int HeightChecker(int[] heights)
         {
-            var sortedArr = new int[heights.Length];
-            heights.CopyTo(sortedArr, 0);
+            var maxHeight = 0;
+            foreach (var height in heights)
+                if (height > maxHeight)
+                    maxHeight = height;
 
-            Array.Sort(sortedArr);
+            var helpArr = new int[maxHeight + 1];
+            foreach (var height in heights)
+                helpArr[height]++;
+
+            var index = 0;
             var diffCounter = 0;
-
-            for (var i = 0; i < heights.Length; i++)
-                if (heights[i] != sortedArr[i])
-                    diffCounter++;
+            for (var i = 0; i < helpArr.Length; i++)
+            {
+                for (var j = 0; j < helpArr[i]; j++)
+                {
+                    if (i != heights[index])
+                        diffCounter++;
+                    index++;
+                }
+            }
 
             return diffCounter;
         }
