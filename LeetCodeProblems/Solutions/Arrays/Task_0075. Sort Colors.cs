@@ -6,6 +6,11 @@
 
         public void SortColors(int[] nums)
         {
+            
+        }
+
+        private void Solution1(int[] nums)
+        {
             int zeros = 0, ones = 0;
             foreach (var num in nums)
                 if (num == 0)
@@ -22,6 +27,27 @@
 
             while (index < nums.Length)
                 nums[index++] = 2;
+        }
+
+        private void Solution2(int[] nums)
+        {
+            int left = 0, mid = 0, right = nums.Length - 1;
+            while (mid <= right)
+            {
+                if (nums[mid] == 0)
+                {
+                    (nums[left], nums[mid]) = (nums[mid], nums[left]);
+                    mid++;
+                    left++;
+                }
+                else if (nums[mid] == 2)
+                {
+                    (nums[right], nums[mid]) = (nums[mid], nums[right]);
+                    right--;
+                }
+                else
+                    mid++;
+            }
         }
     }
 }
