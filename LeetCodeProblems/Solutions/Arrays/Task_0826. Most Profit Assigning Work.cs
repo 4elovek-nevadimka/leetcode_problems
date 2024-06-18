@@ -15,10 +15,15 @@
             Console.WriteLine(MaxProfitAssignment(
                 [66, 1, 28, 73, 53, 35, 45, 60, 100, 44, 59, 94, 27, 88, 7, 18, 83, 18, 72, 63],
                 [66, 20, 84, 81, 56, 40, 37, 82, 53, 45, 43, 96, 67, 27, 12, 54, 98, 19, 47, 77],
-                [1]));
+                [61, 33, 68, 38, 63, 45, 1, 10, 53, 23, 66, 70, 14, 51, 94, 18, 28, 78, 100, 16]));
         }
 
         public int MaxProfitAssignment(int[] difficulty, int[] profit, int[] worker)
+        {
+            return Solution1(difficulty, profit, worker);
+        }
+
+        private int Solution1(int[] difficulty, int[] profit, int[] worker)
         {
             int maxDifficulty = 0;
             foreach (int curDiff in difficulty)
@@ -35,7 +40,7 @@
                     profitsDic[curDiff] = profit[i];
                 else
                     if (profit[i] > profitsDic[curDiff])
-                        profitsDic[curDiff] = profit[i];
+                    profitsDic[curDiff] = profit[i];
             }
 
             var sortedDiffs = new List<int>();
@@ -79,6 +84,30 @@
             }
 
             return sortedDiffs[^1];
+        }
+
+        private int Solution2(int[] difficulty, int[] profit, int[] worker)
+        {
+            Array.Sort(worker);
+            Array.Sort(difficulty, profit);
+
+            int profitSum = 0;
+            int i = 0, j = 0, maxProfit = 0;
+            while (j < worker.Length)
+            {
+                if (i < difficulty.Length && worker[j] >= difficulty[i])
+                {
+                    if (profit[i] > maxProfit)
+                        maxProfit = profit[i];
+                    i++;
+                }
+                else
+                {
+                    profitSum += maxProfit;
+                    j++;
+                }
+            }
+            return profitSum;
         }
     }
 }
