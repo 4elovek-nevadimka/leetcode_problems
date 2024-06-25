@@ -1,8 +1,8 @@
 ﻿namespace Solutions.Trees
 {
-    internal class TreeNodeGenerator
+    internal static class TreeNodeGenerator
     {
-        public TreeNode GenerateTree(int?[] arr)
+        internal static TreeNode Generate(int?[] arr)
         {
             if (arr == null || arr.Length == 0 || !arr[0].HasValue)
                 return null;
