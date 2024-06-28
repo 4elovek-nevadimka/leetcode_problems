@@ -12,6 +12,11 @@
 
         public long MaximumImportance(int n, int[][] roads)
         {
+            return Solution2(n, roads);
+        }
+
+        public long Solution1(int n, int[][] roads)
+        {
             var freqDic = new Dictionary<int, int>();
             foreach (var road in roads)
             {
@@ -40,6 +45,42 @@
             long maxImportance = 0;
             foreach (var road in roads)
                 maxImportance += (long)freqDic[road[0]] + freqDic[road[1]];
+
+            return maxImportance;
+        }
+
+        private long Solution2(int n, int[][] roads)
+        {
+            int[] freqs = new int[n + 1], nodes = new int[n + 1];
+
+            foreach (var road in roads)
+            {
+                nodes[road[0]]++;
+                nodes[road[1]]++;
+            }
+
+            foreach (var node in nodes)
+                freqs[node]++;
+
+            for (int i = freqs.Length - 1; i >= 0; i--)
+            {
+                if (freqs[i] > 0)
+                {
+                    var temp = freqs[i];
+                    freqs[i] = n;
+                    n -= temp;
+                }
+            }
+
+            for (int i = 0; i < freqs.Length; i++)
+            {
+                var temp = nodes[i];
+                nodes[i] = freqs[temp]--;
+            }
+
+            long maxImportance = 0;
+            for (int i = 0; i < roads.Length; i++)
+                maxImportance += nodes[roads[i][0]] + nodes[roads[i][1]];
 
             return maxImportance;
         }
