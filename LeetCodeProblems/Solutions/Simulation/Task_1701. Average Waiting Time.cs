@@ -11,7 +11,7 @@
 
         public double AverageWaitingTime(int[][] customers)
         {
-            long waitingSum = 0, time = customers[0][0];
+            double waitingSum = 0, time = customers[0][0];
             foreach (var customer in customers)
             {
                 if (time < customer[0])
@@ -20,7 +20,7 @@
                 waitingSum += time - customer[0];
             }
 
-            return double.Round((double)waitingSum / customers.Length, 5);
+            return waitingSum / customers.Length;
         }
     }
 }
