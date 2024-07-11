@@ -8,8 +8,13 @@ namespace Solutions.Strings
 
         public string ReverseParentheses(string s)
         {
-            var parenthesesIndices = new Stack<int>();
+            return Solution1(s);
+        }
+
+        private string Solution1(string s)
+        {
             var result = new StringBuilder();
+            var parenthesesIndices = new Stack<int>();
 
             foreach (var c in s)
             {
@@ -39,6 +44,42 @@ namespace Solutions.Strings
                 sb[from++] = sb[to];
                 sb[to--] = tmp;
             }
+        }
+
+        private string Solution2(string s)
+        {
+            var pairIndices = new int[s.Length];
+            var parenthesesIndices = new Stack<int>();
+
+            for (var i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '(')
+                {
+                    parenthesesIndices.Push(i);
+                }
+                else if (s[i] == ')')
+                {
+                    var from = parenthesesIndices.Pop();
+                    pairIndices[i] = from;
+                    pairIndices[from] = i;
+                }
+            }
+
+            var result = new StringBuilder();
+            int index = 0, direction = 1;
+            while (index < s.Length)
+            {
+                if (s[index] == '(' || s[index] == ')')
+                {
+                    index = pairIndices[index];
+                    direction = -direction;
+                }
+                else
+                    result.Append(s[index]);
+                index += direction;
+            }
+
+            return result.ToString();
         }
     }
 }
