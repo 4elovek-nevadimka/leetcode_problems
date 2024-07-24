@@ -18,6 +18,11 @@
 
         public int[] SortJumbled(int[] mapping, int[] nums)
         {
+            return Solution1(mapping, nums);
+        }
+
+        public int[] Solution1(int[] mapping, int[] nums)
+        {
             int GetMappedNum(int oldNum)
             {
                 if (oldNum == 0)
@@ -36,6 +41,36 @@
                 newNum += mapping[stack.Pop()];
 
                 // Console.WriteLine(newNum);
+                return newNum;
+            }
+
+            var pairs = new List<(int original, int mapped)>();
+            foreach (int num in nums)
+                pairs.Add((num, GetMappedNum(num)));
+
+            pairs.Sort((a, b) => a.mapped.CompareTo(b.mapped));
+
+            var sortedNums = new int[nums.Length];
+            for (int i = 0; i < pairs.Count; i++)
+                sortedNums[i] = pairs[i].original;
+
+            return sortedNums;
+        }
+
+        public int[] Solution2(int[] mapping, int[] nums)
+        {
+            int GetMappedNum(int oldNum)
+            {
+                if (oldNum == 0) 
+                    return mapping[0];
+                int newNum = 0, factor = 1;
+                while (oldNum > 0)
+                {
+                    var digit = oldNum % 10;
+                    newNum = mapping[digit] * factor + newNum;
+                    factor *= 10;
+                    oldNum /= 10;
+                }
                 return newNum;
             }
 
