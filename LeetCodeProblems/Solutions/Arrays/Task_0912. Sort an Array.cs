@@ -6,43 +6,55 @@
 
         public int[] SortArray(int[] nums)
         {
-            QuickSort(nums, 0, nums.Length - 1);
+            if (nums == null || nums.Length <= 1)
+                return nums;
+
+            int[] tempArray = new int[nums.Length];
+            MergeSort(nums, tempArray, 0, nums.Length - 1);
             return nums;
         }
 
-        private void QuickSort(int[] arr, int left, int right)
+        private void MergeSort(int[] nums, int[] tempArray, int left, int right)
         {
             if (left < right)
             {
-                int pivotIndex = Partition(arr, left, right);
-                QuickSort(arr, left, pivotIndex - 1);
-                QuickSort(arr, pivotIndex + 1, right);
+                int mid = left + (right - left) / 2;
+                MergeSort(nums, tempArray, left, mid);
+                MergeSort(nums, tempArray, mid + 1, right);
+                Merge(nums, tempArray, left, mid, right);
             }
         }
 
-        private int Partition(int[] arr, int left, int right)
+        private void Merge(int[] nums, int[] tempArray, int left, int mid, int right)
         {
-            int pivot = arr[right];
-            int i = left - 1;
+            for (int i = left; i <= right; i++)
+                tempArray[i] = nums[i];
 
-            for (int j = left; j < right; j++)
+            int leftIndex = left;
+            int rightIndex = mid + 1;
+            int current = left;
+
+            while (leftIndex <= mid && rightIndex <= right)
             {
-                if (arr[j] <= pivot)
+                if (tempArray[leftIndex] <= tempArray[rightIndex])
                 {
-                    i++;
-                    Swap(arr, i, j);
+                    nums[current] = tempArray[leftIndex];
+                    leftIndex++;
                 }
+                else
+                {
+                    nums[current] = tempArray[rightIndex];
+                    rightIndex++;
+                }
+                current++;
             }
 
-            Swap(arr, i + 1, right);
-            return i + 1;
-        }
-
-        private void Swap(int[] arr, int i, int j)
-        {
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
+            while (leftIndex <= mid)
+            {
+                nums[current] = tempArray[leftIndex];
+                leftIndex++;
+                current++;
+            }
         }
     }
 }
